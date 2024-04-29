@@ -99,7 +99,7 @@
 
 /* Apply styles to all input elements */
 input {
-  padding: 6px 12px;
+  padding: 10px;
   font-size: 16px;
   font-weight: 400;
   line-height: 1.5;
@@ -128,19 +128,19 @@ input:focus {
   <div class="input-wrapper">
     <h1>Legg til farge</h1>
     <div class="farge-wrapper">
-      <label for="fargenavnInput">Fargenavn:</label>
-      <input type="text" id="fargenavnInput">
+      <label for="fargenavnInput">Fargenavn</label>
+      <input type="text" id="fargenavnInput" placeholder="Hvit">
     </div>
     <div class="farge-wrapper">
-      <label for="hexInput">Hex code:</label>
+      <label for="hexInput">HTML</label>
       <input type="text" id="hexInput" maxlength="7" placeholder="#FFFFFF">
     </div>
     <div class="farge-wrapper">
-      <label for="rgbInput">RGB:</label>
+      <label for="rgbInput">RGB</label>
       <input type="text" id="rgbInput" placeholder="255 255 255">
     </div>
     <div class="farge-wrapper">
-      <label for="cmykInput">CMYK:</label>
+      <label for="cmykInput">CMYK</label>
       <input type="text" id="cmykInput" placeholder="0 0 0 0">
     </div>
     <button onclick="generateHTML()">Generer kode</button>
