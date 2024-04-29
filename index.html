@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Color Generator</title>
+<style>
+  .farge-wrapper {
+    margin-bottom: 10px;
+  }
+  .fargetype {
+    margin-bottom: 5px;
+  }
+  .clickable {
+    cursor: pointer;
+    user-select: none;
+  }
+  #colorList {
+    margin-top: 20px;
+  }
+</style>
+</head>
+<body>
+
+<div class="input-wrapper">
+  <div class="farge-wrapper">
+    <label for="fargenavnInput">Fargenavn:</label>
+    <input type="text" id="fargenavnInput">
+  </div>
+  <div class="farge-wrapper">
+    <label for="hexInput">Hex code:</label>
+    <input type="text" id="hexInput" maxlength="7" placeholder="#FFFFFF">
+  </div>
+  <div class="farge-wrapper">
+    <label for="rgbInput">RGB:</label>
+    <input type="text" id="rgbInput" placeholder="255 255 255">
+  </div>
+  <div class="farge-wrapper">
+    <label for="cmykInput">CMYK:</label>
+    <input type="text" id="cmykInput" placeholder="0 0 0 0">
+  </div>
+</div>
+
+<button onclick="generateHTML()">Generate HTML</button>
+<textarea id="generatedHTML" rows="10" cols="50" style="display: none;"></textarea>
+
+<div id="colorList"></div>
+
+<script>
+  // Function to update color codes
+  function updateColorCodes() {
+    const fargenavn = document.getElementById('fargenavnInput').value;
+    const hex = document.getElementById('hexInput').value;
+    const rgb = document.getElementById('rgbInput').value;
+    const cmyk = document.getElementById('cmykInput').value;
+    
+    // Update text content
+    document.getElementById('hexCode').textContent = hex.toUpperCase();
+    document.getElementById('rgbCode').textContent = rgb;
+    document.getElementById('cmykCode').textContent = cmyk;
+    
+    // Update color
+    document.querySelector('.farge-wrapper').style.color = hex;
+    document.querySelector('.farge-wrapper').textContent = fargenavn;
+  }
+
+  // Function to generate HTML code
+  function generateHTML() {
+    updateColorCodes(); // Ensure latest values are used
+    const fargenavn = document.getElementById('fargenavnInput').value;
+    const hex = document.getElementById('hexInput').value;
+    const rgb = document.getElementById('rgbInput').value;
+    const cmyk = document.getElementById('cmykInput').value;
+
+    const generatedHTML = `
+<div class="farge-wrapper">${fargenavn}</div>
+<div class="farge-wrapper">
+  <div class="fargetype">
+    HTML:
+    <p id="hexCode" class="clickable">${hex.toUpperCase()}</p>
+  </div>
+  <div class="fargetype">
+    RGB:
+    <p id="rgbCode" class="clickable">${rgb}</p>
+  </div>
+  <div class="fargetype">
+    CMYK:
+    <p id="cmykCode" class="clickable">${cmyk}</p>
+  </div>
+</div>`;
+
+    // Append generated HTML to the textarea
+    document.getElementById('generatedHTML').value = generatedHTML;
+
+    // Copy generated HTML to clipboard
+    navigator.clipboard.writeText(generatedHTML)
+      .then(() => {
+        alert('HTML code copied to clipboard!');
+      })
+      .catch(err => {
+        console.error('Could not copy HTML code: ', err);
+        alert('Failed to copy HTML code. Please try again.');
+      });
+
+    // Save generated color to local storage
+    const colors = JSON.parse(localStorage.getItem('colors')) || [];
+    colors.push({
+      fargenavn: fargenavn,
+      hex: hex.toUpperCase(),
+      rgb: rgb,
+      cmyk: cmyk
+    });
+    localStorage.setItem('colors', JSON.stringify(colors));
+
+    // Display list of all generated colors
+    displayColorList();
+  }
+
+  // Function to display list of all generated colors
+  function displayColorList() {
+    const colors = JSON.parse(localStorage.getItem('colors')) || [];
+    const colorListDiv = document.getElementById('colorList');
+    colorListDiv.innerHTML = '<h2>Generated Colors</h2>';
+    colors.forEach(color => {
+      colorListDiv.innerHTML += `
+        <div class="farge-wrapper">${color.fargenavn}</div>
+        <div class="farge-wrapper">
+          <div class="fargetype">
+            HTML:
+            <p class="clickable">${color.hex}</p>
+          </div>
+          <div class="fargetype">
+            RGB:
+            <p class="clickable">${color.rgb}</p>
+          </div>
+          <div class="fargetype">
+            CMYK:
+            <p class="clickable">${color.cmyk}</p>
+          </div>
+        </div>
+      `;
+    });
+  }
+
+  // Initial call to display list of generated colors
+  displayColorList();
+</script>
+
+</body>
+</html>
