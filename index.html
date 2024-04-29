@@ -15,6 +15,10 @@
       font-family: Poppins;
     }
 
+    h1 {
+      font-weight: 600;
+    }
+
     .farge-wrapper {
       margin-bottom: 10px;
       display: flex;
@@ -89,6 +93,24 @@
       color: white;
     }
 
+    .button1 {
+      padding: 10px;
+      background-color: black;
+      border-radius: 8px;
+      color: white;
+      transition: 0.2s;
+      height: 56px;
+      border: 0;
+      outline: 0;
+    }
+
+    .button1:hover {
+      background-color: grey;
+      color: white;
+      box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+
+    }
+
     .input-wrapper .farge-wrapper {
       display: flex;
     flex-direction: column;
@@ -142,7 +164,7 @@ input:focus {
       <label for="cmykInput">CMYK</label>
       <input type="text" id="cmykInput" placeholder="0 0 0 0">
     </div>
-    <button onclick="generateHTML()">Generer kode</button>
+    <button class="button1" onclick="generateHTML()">Generer kode</button>
     <textarea id="generatedHTML" rows="10" cols="50" style="display: none;"></textarea>
   </div>
 
