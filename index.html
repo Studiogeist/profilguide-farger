@@ -26,11 +26,12 @@
       align-items: center;
       background-color: white;
       border-radius: 8px;
+      outline: 1px solid #d1d5db;
     }
 
     body {
       display: flex;
-      background-color: #f4f4f4;
+      background-color: white;
       padding: 0;
       margin: 0;
     }
@@ -56,6 +57,7 @@
       position: fixed;
       height: 100vh;
       gap: 10px;
+      outline: 1px solid #d1d5db;
     }
 
     .farge-wrapper #text {
@@ -147,19 +149,19 @@
 
   <div class="input-wrapper">
     <h1>Legg til farge</h1>
-    <div class="farge-wrapper">
+    <div class="farge-wrapper-input">
       <label for="fargenavnInput">Fargenavn</label>
       <input type="text" id="fargenavnInput" placeholder="Hvit">
     </div>
-    <div class="farge-wrapper">
+    <div class="farge-wrapper-input">
       <label for="hexInput">HTML</label>
       <input type="text" id="hexInput" maxlength="7" placeholder="#FFFFFF">
     </div>
-    <div class="farge-wrapper">
+    <div class="farge-wrapper-input">
       <label for="rgbInput">RGB</label>
       <input type="text" id="rgbInput" placeholder="255 255 255">
     </div>
-    <div class="farge-wrapper">
+    <div class="farge-wrapper-input">
       <label for="cmykInput">CMYK</label>
       <input type="text" id="cmykInput" placeholder="0 0 0 0">
     </div>
