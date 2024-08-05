@@ -169,8 +169,6 @@
     <textarea id="generatedHTML" rows="10" cols="50" style="display: none;"></textarea>
   </div>
 
-
-
   <div id="colorList"></div>
 
   <script>
@@ -214,25 +212,24 @@
       const copyButton = document.createElement('button');
       copyButton.textContent = 'Kopier';
       copyButton.onclick = () => copyColor(`
-      <div class="farge-wrapper">
-        
-        ${colorData.fargenavn}
-      </div>
-      <div class="farge-wrapper">
-        <div class="fargetype">
-          HTML:
-          <p class="clickable">${colorData.hex.toUpperCase()}</p>
+        <div class="farge-wrapper">
+          ${colorData.fargenavn}
         </div>
-        <div class="fargetype">
-          RGB:
-          <p class="clickable">${colorData.rgb}</p>
+        <div class="farge-wrapper">
+          <div class="fargetype">
+            HTML:
+            <p class="clickable">${colorData.hex.toUpperCase()}</p>
+          </div>
+          <div class="fargetype">
+            RGB:
+            <p class="clickable">${colorData.rgb}</p>
+          </div>
+          <div class="fargetype">
+            CMYK:
+            <p class="clickable">${colorData.cmyk}</p>
+          </div>
         </div>
-        <div class="fargetype">
-          CMYK:
-          <p class="clickable">${colorData.cmyk}</p>
-        </div>
-      </div>
-    `);
+      `);
       colorItem.appendChild(copyButton);
 
       const removeButton = document.createElement('button');
@@ -245,14 +242,18 @@
 
     // Function to copy color code to clipboard
     function copyColor(html) {
-      navigator.clipboard.writeText(html)
-        .then(() => {
-          alert('HTML code copied to clipboard!');
-        })
-        .catch(err => {
-          console.error('Could not copy HTML code: ', err);
-          alert('Failed to copy HTML code. Please try again.');
-        });
+      const tempTextArea = document.createElement('textarea');
+      tempTextArea.value = html;
+      document.body.appendChild(tempTextArea);
+      tempTextArea.select();
+      try {
+        document.execCommand('copy');
+        alert('HTML code copied to clipboard!');
+      } catch (err) {
+        console.error('Could not copy HTML code: ', err);
+        alert('Failed to copy HTML code. Please try again.');
+      }
+      document.body.removeChild(tempTextArea);
     }
 
     // Function to remove color from the list
